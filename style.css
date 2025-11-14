@@ -1,0 +1,126 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('cyber2.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent dark layer */
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+}
+
+
+h1, h2 {
+  text-align: center;
+  color: #ff6ec7; /* neon pink for contrast */
+  text-shadow: 0 0 8px #ff6ec7, 0 0 15px #ff6ec7;
+}
+
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+input, textarea {
+  flex: 1 1 45%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #ddd;
+}
+
+
+button {
+  padding: 12px 25px;
+  background: linear-gradient(90deg, #ff00ff, #8000ff); /* neon gradient */
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(255,0,255,0.5);
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+th {
+  background: rgba(255,255,255,0.1);
+  color: #ff6ec7;
+}
+
+tr:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+
+.actions button {
+  padding: 6px 12px;
+  font-size: 12px;
+  margin-right: 5px;
+  background: linear-gradient(90deg, #00ffff, #0077ff);
+}
+
+.actions button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0,255,255,0.4);
+}
+
+
+.output, .comment-box {
+  background: rgba(0,0,0,0.5);
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 15px;
+  white-space: pre-wrap;
+  color: #fff;
+}
+
+
+.reset-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #ff6ec7;
+  text-decoration: none;
+}
+
+.reset-link:hover {
+  text-decoration: underline;
+}

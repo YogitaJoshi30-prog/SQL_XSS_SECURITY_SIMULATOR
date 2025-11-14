@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <script>
+    // Fetch employees and display
+    async function loadData() {
+      const token = localStorage.getItem("authToken");
+      if(!token) {
+        alert("You are not authorized! Please login.");
+        window.location.href = "/index.html";
+        return;
+      }
+
+      const res = await fetch('/dashboard/employees', {
+        headers: { "x-auth-token": token }
+      });
+      const data = await res.json();
+
+      if(data.error){
+        alert("Unauthorized! Redirecting to login.");
+        localStorage.removeItem("authToken");
+        window.location.href = "/index.html";
+        return;
+      }
+
+      let table = "<table border='1'><tr><th>ID</th><th>Name</th><th>Age</th><th>Salary</th><th>Phone</th><th>Sector</th><th>Actions</th></tr>";
+      data.forEach(row => {
+        table += `<tr>
+          <td>${row.id}</td>
+          <td>${row.name}</td>
+          <td>${row.age}</td>
+          <td>${row.salary}</td>
+          <td>${row.phone}</td>
+          <td>${row.sector}</td>
+          <td class="actions">
+            <button onclick="edit(${row.id})">Edit</button>
+            <button onclick="del(${row.id})">Delete</button>
+          </td>
+        </tr>`;
+      });
+      table += "</table>";
+      document.getElementById("data").innerHTML = table;
+    }
+
+    // Delete employee
+    async function del(id) {
+      const token = localStorage.getItem("authToken");
+      await fetch('/employees/delete/' + id, { method: "DELETE", headers: {"x-auth-token": token} });
+      loadData();
+    }
+
+    // Edit employee
+    async function edit(id) {
+      const token = localStorage.getItem("authToken");
+      const res = await fetch('/dashboard/employees', { headers: { "x-auth-token": token } });
+      const data = await res.json();
+      const emp = data.find(e => e.id === id);
+      if(!emp) return alert("Employee not found");
+
+      const name = prompt("Name:", emp.name);
+      const age = prompt("Age:", emp.age);
+      const salary = prompt("Salary:", emp.salary);
+      const phone = prompt("Phone:", emp.phone);
+      const sector = prompt("Sector:", emp.sector);
+
+      if(name && age && salary && phone && sector){
+        await fetch('/employees/update/' + id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+          body: JSON.stringify({ name, age, salary, phone, sector })
+        });
+        loadData();
+      }
+    }
+
+    // Handle add employee form
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("addForm").addEventListener("submit", async function(e){
+        e.preventDefault();
+        const token = localStorage.getItem("authToken");
+        const name = document.getElementById("name").value;
+        const age = document.getElementById("age").value;
+        const salary = document.getElementById("salary").value;
+        const phone = document.getElementById("phone").value;
+        const sector = document.getElementById("sector").value;
+
+        await fetch('/employees/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+          body: JSON.stringify({ name, age, salary, phone, sector })
+        });
+
+        document.getElementById("addForm").reset();
+        loadData();
+      });
+
+      loadData();
+    });
+  </script>
+</head>
+<body>
+  <h1>Welcome to Dashboard</h1>
+
+  <h2>Add New Employee</h2>
+  <form id="addForm">
+    Name: <input type="text" id="name" required>
+    Age: <input type="number" id="age" required>
+    Salary: <input type="number" id="salary" required>
+    Phone: <input type="text" id="phone" required>
+    Sector: <input type="text" id="sector" required>
+    <button type="submit">Add Employee</button>
+  </form>
+
+  <div id="data"></div>
+</body>
+</html>

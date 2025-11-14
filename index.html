@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Security Simulation Dashboard</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <h1>Cybersecurity Simulation Dashboard</h1>
+
+  <!--SQL Login Simulation -->
+  <div class="card">
+    <h2>SQL Login Simulation</h2>
+
+    <form id="sql-form">
+      <input type="text" id="sql-username" placeholder="Username" />
+      <input type="password" id="sql-password" placeholder="Password" />
+      <input type="text" id="sql-token" placeholder="Enter 2FA Token" />
+      <button type="submit">Login</button>
+    </form>
+
+    <div id="sql-output" class="output"></div>
+  </div>
+
+  <!--XSS Simulation -->
+  <div class="card">
+    <h2>XSS Comment Box</h2>
+
+    <form id="xss-form">
+      <textarea id="xss-input" placeholder="Enter your comment..."></textarea>
+      <button type="submit">Submit Comment</button>
+    </form>
+
+    <h3>Comments:</h3>
+    <div id="xss-comments"></div>
+  </div>
+
+  <!-- Employee Dashboard Link -->
+  <div class="card">
+    <h2>Employee Database Dashboard</h2>
+    <p>After login, you can access the Employee Database:</p>
+
+    <a href="/dashboard.html">
+      <button type="button">Open Employee Dashboard</button>
+    </a>
+  </div>
+
+  <!-- JS File -->
+  <script src="script.js"></script>
+
+</body>
+</html>
